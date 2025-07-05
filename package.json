@@ -1,44 +1,34 @@
 {
-  "name": "patent-prior-art-search",
+  "name": "pasai-complete",
   "version": "1.0.0",
-  "description": "Comprehensive patent prior art search and analysis application",
-  "main": "server.js",
+  "description": "Complete Patent Prior Art Search & Analysis Application",
+  "main": "index.html",
   "scripts": {
-    "start": "node server.js",
-    "dev": "node server.js",
-    "build": "echo 'Static site - no build needed'",
-    "test": "echo 'Tests not implemented yet'"
+    "start": "http-server -p 8080 -a localhost",
+    "build": "echo 'No build step required for static app'",
+    "deploy": "echo 'Deploy to your preferred hosting platform'"
   },
   "keywords": [
     "patent",
     "prior-art",
     "search",
     "analysis",
-    "intellectual-property",
-    "lens-api",
-    "patent-search"
+    "gpt",
+    "ai",
+    "lens-org",
+    "intellectual-property"
   ],
-  "author": "Patent Prior Art Search Team",
+  "author": "PASAI Development Team",
   "license": "MIT",
   "dependencies": {
-    "express": "^4.18.2",
-    "cors": "^2.8.5",
-    "helmet": "^7.0.0",
-    "compression": "^1.7.4",
-    "dotenv": "^16.3.1"
-  },
-  "devDependencies": {
-    "nodemon": "^3.0.1"
+    "http-server": "^14.1.1"
   },
   "engines": {
-    "node": ">=18.0.0"
+    "node": ">=14.0.0"
   },
   "repository": {
     "type": "git",
-    "url": "https://github.com/your-username/patent-prior-art-search.git"
+    "url": "https://github.com/your-username/pasai-complete.git"
   },
-  "homepage": "https://github.com/your-username/patent-prior-art-search#readme",
-  "bugs": {
-    "url": "https://github.com/your-username/patent-prior-art-search/issues"
-  }
+  "homepage": "https://your-username.github.io/pasai-complete"
 }
