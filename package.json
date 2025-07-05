@@ -1,68 +1,11 @@
 {
-  "name": "pasai-security-fix",
+  "name": "pasai",
   "version": "1.0.0",
-  "description": "Security-enhanced PASAI application with proper environment variable management",
-  "main": "src/app.js",
   "scripts": {
-    "dev": "http-server -p 8080 -c-1",
-    "build": "echo 'No build step required for static site'",
-    "build:secure": "node inject-env.js",
-    "start": "./generate-config.sh && http-server -p ${PORT:-8080} -a 0.0.0.0",
-    "start:dev": "npm run generate:config && npm run dev",
-    "generate:config": "chmod +x generate-config.sh && ./generate-config.sh",
-    "validate:env": "node validate-env.js",
-    "security:check": "node security-check.js",
-    "test": "echo 'No tests specified' && exit 0",
-    "deploy:render": "npm run build:secure && npm start",
-    "deploy:github": "npm run build:secure",
-    "backup:config": "cp src/app.js src/app.js.backup",
-    "restore:config": "cp src/app.js.backup src/app.js"
+    "start": "http-server src -p $PORT -a 0.0.0.0",
+    "dev": "http-server src -p 8080 -a localhost"
   },
   "dependencies": {
     "http-server": "^14.1.1"
-  },
-  "devDependencies": {
-    "chalk": "^4.1.2",
-    "dotenv": "^16.0.3"
-  },
-  "engines": {
-    "node": ">=14.0.0"
-  },
-  "repository": {
-    "type": "git",
-    "url": "https://github.com/yourusername/PASAI.git"
-  },
-  "keywords": [
-    "patent",
-    "prior-art",
-    "ai",
-    "openai",
-    "lens-api",
-    "security",
-    "environment-variables"
-  ],
-  "author": "Your Name",
-  "license": "MIT",
-  "config": {
-    "unsafe-perm": true
-  },
-  "render": {
-    "buildCommand": "npm run build:secure",
-    "startCommand": "npm start",
-    "environment": "static"
-  },
-  "security": {
-    "environmentVariables": {
-      "required": [
-        "OPENAI_API_KEY",
-        "LENS_TOKEN"
-      ],
-      "optional": [
-        "GOOGLE_API_KEY",
-        "GOOGLE_CX",
-        "NODE_ENV",
-        "ENABLE_DEBUG"
-      ]
-    }
   }
 }
