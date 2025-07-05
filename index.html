@@ -1,0 +1,300 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Automated Patent Prior Art Search & Analysis</title>
+    <link rel="stylesheet" href="style.css">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+</head>
+<body>
+    <!-- Navigation Header -->
+    <header class="header">
+        <div class="container">
+            <div class="header__content">
+                <h1 class="header__title">Automated Patent Prior Art Analysis</h1>
+                <div class="automation-status">
+                    <div class="status-indicator" id="automation-status">
+                        <span class="status-light active"></span>
+                        <span>AI Systems Online</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <!-- Main Dashboard -->
+    <main class="main-content">
+        <div class="container">
+            <!-- Dashboard Overview -->
+            <section class="dashboard-overview">
+                <div class="automation-features">
+                    <div class="feature-card">
+                        <div class="feature-icon">🧠</div>
+                        <h3>NLP Analysis</h3>
+                        <p>Real-time concept extraction</p>
+                        <div class="status status--success">Active</div>
+                    </div>
+                    <div class="feature-card">
+                        <div class="feature-icon">🔍</div>
+                        <h3>Smart Search</h3>
+                        <p>Automated query generation</p>
+                        <div class="status status--success">Enabled</div>
+                    </div>
+                    <div class="feature-card">
+                        <div class="feature-icon">🔗</div>
+                        <h3>API Integration</h3>
+                        <p>Live Lens.org connectivity</p>
+                        <div class="status status--success">Connected</div>
+                    </div>
+                    <div class="feature-card">
+                        <div class="feature-icon">📊</div>
+                        <h3>AI Assessment</h3>
+                        <p>Automated analysis engine</p>
+                        <div class="status status--success">Ready</div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Section 1: Invention Disclosure Input -->
+            <section class="analysis-section" id="disclosure-section">
+                <div class="section-header">
+                    <h2>Section 1: Invention Disclosure Input</h2>
+                    <div class="processing-indicator" id="nlp-indicator">
+                        <span class="indicator-light"></span>
+                        <span>AI Analysis: Standby</span>
+                    </div>
+                </div>
+                
+                <div class="disclosure-form">
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="invention-title" class="form-label">Invention Title</label>
+                            <input type="text" id="invention-title" class="form-control" placeholder="Enter your invention title">
+                            <div class="char-count">
+                                <span id="title-count">0</span>/200 characters
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="invention-abstract" class="form-label">Abstract</label>
+                            <textarea id="invention-abstract" class="form-control" rows="4" placeholder="Provide a brief abstract of your invention"></textarea>
+                            <div class="char-count">
+                                <span id="abstract-count">0</span>/500 characters
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="detailed-description" class="form-label">Detailed Description</label>
+                            <textarea id="detailed-description" class="form-control" rows="8" placeholder="Provide detailed description of your invention, including technical features, advantages, and implementation details"></textarea>
+                            <div class="char-count">
+                                <span id="description-count">0</span>/2000 characters
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="extracted-concepts">
+                        <h3>Real-Time AI Analysis</h3>
+                        <div class="concepts-grid">
+                            <div class="concept-panel">
+                                <h4>Extracted Keywords</h4>
+                                <div id="extracted-keywords" class="keyword-tags"></div>
+                            </div>
+                            <div class="concept-panel">
+                                <h4>Technical Concepts</h4>
+                                <div id="technical-concepts" class="concept-list"></div>
+                            </div>
+                            <div class="concept-panel">
+                                <h4>Classification Codes</h4>
+                                <div id="classification-codes" class="classification-list"></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Section 2: Automated Analysis Engine -->
+            <section class="analysis-section" id="analysis-engine-section">
+                <div class="section-header">
+                    <h2>Section 2: Automated Analysis Engine</h2>
+                    <div class="processing-indicator" id="analysis-indicator">
+                        <span class="indicator-light"></span>
+                        <span>Processing: Standby</span>
+                    </div>
+                </div>
+                
+                <div class="analysis-panels">
+                    <div class="analysis-panel">
+                        <h3>Concept Mapping</h3>
+                        <div class="concept-confidence">
+                            <div id="concept-chart-container">
+                                <canvas id="concept-chart" width="400" height="200"></canvas>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="analysis-panel">
+                        <h3>Generated Search Strings</h3>
+                        <div id="search-strings" class="search-query-list">
+                            <p class="placeholder-text">AI will generate optimized search queries here...</p>
+                        </div>
+                    </div>
+
+                    <div class="analysis-panel">
+                        <h3>Semantic Analysis</h3>
+                        <div id="semantic-analysis" class="semantic-results">
+                            <div class="semantic-item">
+                                <span class="semantic-label">Readiness Score:</span>
+                                <span class="semantic-value" id="readiness-score">Pending Analysis</span>
+                            </div>
+                            <div class="semantic-item">
+                                <span class="semantic-label">Concept Clarity:</span>
+                                <span class="semantic-value" id="concept-clarity">Pending Analysis</span>
+                            </div>
+                            <div class="semantic-item">
+                                <span class="semantic-label">Technical Depth:</span>
+                                <span class="semantic-value" id="technical-depth">Pending Analysis</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="automation-controls">
+                    <button id="start-analysis" class="btn btn--primary btn--lg">
+                        Start Automated Analysis
+                    </button>
+                </div>
+            </section>
+
+            <!-- Section 3: Intelligent Search & Results -->
+            <section class="analysis-section" id="search-results-section">
+                <div class="section-header">
+                    <h2>Section 3: Intelligent Search & Results</h2>
+                    <div class="processing-indicator" id="search-indicator">
+                        <span class="indicator-light"></span>
+                        <span>Search Status: Ready</span>
+                    </div>
+                </div>
+                
+                <div class="search-progress">
+                    <div class="progress-steps">
+                        <div class="step" id="step-generate">
+                            <div class="step-number">1</div>
+                            <div class="step-label">Generate Queries</div>
+                        </div>
+                        <div class="step" id="step-search">
+                            <div class="step-number">2</div>
+                            <div class="step-label">Execute Search</div>
+                        </div>
+                        <div class="step" id="step-rank">
+                            <div class="step-number">3</div>
+                            <div class="step-label">Rank Results</div>
+                        </div>
+                        <div class="step" id="step-select">
+                            <div class="step-number">4</div>
+                            <div class="step-label">Select Top 10</div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="search-results">
+                    <div class="results-summary">
+                        <div class="summary-stat">
+                            <span class="stat-number" id="total-results">0</span>
+                            <span class="stat-label">Total Results</span>
+                        </div>
+                        <div class="summary-stat">
+                            <span class="stat-number" id="queries-executed">0</span>
+                            <span class="stat-label">Queries Executed</span>
+                        </div>
+                        <div class="summary-stat">
+                            <span class="stat-number" id="avg-relevance">0%</span>
+                            <span class="stat-label">Avg. Relevance</span>
+                        </div>
+                    </div>
+
+                    <div class="top-results">
+                        <h3>Top 10 Most Relevant Prior Art</h3>
+                        <div id="patent-results" class="patent-list">
+                            <p class="placeholder-text">AI-ranked patent results will appear here...</p>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Section 4: AI Assessment Report -->
+            <section class="analysis-section" id="assessment-section">
+                <div class="section-header">
+                    <h2>Section 4: AI Assessment Report</h2>
+                    <div class="processing-indicator" id="assessment-indicator">
+                        <span class="indicator-light"></span>
+                        <span>Assessment: Pending</span>
+                    </div>
+                </div>
+                
+                <div class="assessment-report">
+                    <div class="assessment-summary">
+                        <div class="assessment-card">
+                            <h3>Novelty Assessment</h3>
+                            <div class="assessment-score" id="novelty-score">Pending</div>
+                            <div class="assessment-details" id="novelty-details">
+                                <p>AI analysis will identify unique aspects and overlapping features...</p>
+                            </div>
+                        </div>
+
+                        <div class="assessment-card">
+                            <h3>Inventiveness</h3>
+                            <div class="assessment-score" id="inventiveness-score">Pending</div>
+                            <div class="assessment-details" id="inventiveness-details">
+                                <p>Non-obviousness evaluation based on closest prior art...</p>
+                            </div>
+                        </div>
+
+                        <div class="assessment-card">
+                            <h3>Industrial Applicability</h3>
+                            <div class="assessment-score" id="applicability-score">Pending</div>
+                            <div class="assessment-details" id="applicability-details">
+                                <p>Assessment of practical utility and commercial viability...</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="recommendations">
+                        <h3>AI Recommendations</h3>
+                        <div id="ai-recommendations" class="recommendation-list">
+                            <p class="placeholder-text">Strategic recommendations will be generated here...</p>
+                        </div>
+                    </div>
+
+                    <div class="report-actions">
+                        <button id="generate-report" class="btn btn--primary btn--lg" disabled>
+                            Generate Full Report
+                        </button>
+                        <button id="export-pdf" class="btn btn--secondary" disabled>
+                            Export as PDF
+                        </button>
+                        <button id="export-word" class="btn btn--secondary" disabled>
+                            Export as Word
+                        </button>
+                    </div>
+                </div>
+            </section>
+        </div>
+    </main>
+
+    <!-- Loading Overlay -->
+    <div id="loading-overlay" class="loading-overlay hidden">
+        <div class="loading-content">
+            <div class="loading-spinner"></div>
+            <h3>AI Processing in Progress</h3>
+            <p id="loading-message">Analyzing your invention disclosure...</p>
+        </div>
+    </div>
+
+    <script src="app.js"></script>
+</body>
+</html>
