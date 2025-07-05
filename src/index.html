@@ -3,271 +3,220 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Patent Prior Art Search & Analysis</title>
+    <title>PASAI Security Fix - Environment Variables Solution</title>
     <link rel="stylesheet" href="style.css">
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
 </head>
 <body>
     <div class="container">
         <header class="header">
-            <h1>Patent Prior Art Search & Analysis</h1>
-            <div class="progress-container">
-                <div class="progress-bar" id="mainProgress">
-                    <div class="progress-fill" id="mainProgressFill"></div>
-                </div>
-                <div class="progress-text" id="mainProgressText">Step 1 of 6</div>
+            <h1>PASAI Security Fix</h1>
+            <p class="header__subtitle">Secure Environment Variable Management for Client-Side Applications</p>
+            <div class="security-status" id="securityStatus">
+                <span class="status status--error">
+                    <span class="status-indicator"></span>
+                    API Key Exposed in Source Code
+                </span>
             </div>
         </header>
 
-        <main class="main-content">
-            <!-- Step 1: Technology Disclosure Form -->
-            <section class="step-section active" id="step1">
+        <main class="main">
+            <!-- Dashboard Overview -->
+            <section class="dashboard">
                 <div class="card">
                     <div class="card__header">
-                        <h2>Step 1: Technology Disclosure</h2>
-                        <div class="step-progress">
-                            <div class="progress-bar">
-                                <div class="progress-fill" id="step1Progress"></div>
-                            </div>
-                            <span class="progress-text" id="step1ProgressText">0% Complete</span>
-                        </div>
+                        <h2>Security Issue Detected</h2>
                     </div>
                     <div class="card__body">
-                        <form id="disclosureForm" class="disclosure-form">
-                            <div class="form-group">
-                                <label for="inventionTitle" class="form-label">Invention Title <span class="required">*</span></label>
-                                <input type="text" id="inventionTitle" class="form-control" placeholder="Enter invention title (10-200 characters)" maxlength="200">
-                                <div class="form-help">
-                                    <span class="char-count" id="titleCharCount">0/200</span>
-                                    <span class="validation-message" id="titleValidation"></span>
+                        <div class="security-issue">
+                            <div class="issue-details">
+                                <h3>OpenAI API Key Found in Source Code</h3>
+                                <p>Secret scanning detected an exposed OpenAI API key in <code>src/app.js</code>. This poses a significant security risk as the API key is visible to anyone who can access your source code.</p>
+                                <div class="risk-level">
+                                    <span class="status status--error">High Risk</span>
+                                    <span class="risk-description">Immediate action required</span>
                                 </div>
                             </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
 
-                            <div class="form-group">
-                                <label for="abstract" class="form-label">Abstract <span class="required">*</span></label>
-                                <textarea id="abstract" class="form-control" rows="4" placeholder="Enter abstract (any length)"></textarea>
-                                <div class="form-help">
-                                    <span class="char-count" id="abstractCharCount">0 characters</span>
-                                    <span class="validation-message" id="abstractValidation"></span>
-                                </div>
+            <!-- Solution Selection -->
+            <section class="solutions">
+                <h2>Choose Your Security Solution</h2>
+                <div class="solutions-grid">
+                    <div class="solution-card" data-solution="build-time">
+                        <div class="solution-header">
+                            <h3>Build-time Replacement</h3>
+                            <div class="solution-badges">
+                                <span class="status status--warning">Medium Security</span>
+                                <span class="complexity complexity--low">Low Complexity</span>
+                                <span class="badge badge--recommended">Recommended</span>
                             </div>
-
-                            <div class="form-group">
-                                <label for="disclosure" class="form-label">Detailed Disclosure <span class="required">*</span></label>
-                                <textarea id="disclosure" class="form-control" rows="8" placeholder="Enter detailed disclosure (minimum 500 characters)"></textarea>
-                                <div class="form-help">
-                                    <span class="char-count" id="disclosureCharCount">0/500</span>
-                                    <span class="validation-message" id="disclosureValidation"></span>
-                                </div>
+                        </div>
+                        <p>Replace placeholders with environment variables during the build process</p>
+                        <div class="solution-stats">
+                            <div class="stat">
+                                <span class="stat-label">Setup Time</span>
+                                <span class="stat-value">15 min</span>
                             </div>
-
-                            <div class="form-group">
-                                <label for="claims" class="form-label">Initial Claims (Optional)</label>
-                                <textarea id="claims" class="form-control" rows="4" placeholder="Enter claims (single sentences separated by periods)"></textarea>
-                                <div class="form-help">
-                                    <span class="char-count" id="claimsCharCount">0 sentences</span>
-                                    <span class="validation-message" id="claimsValidation"></span>
-                                </div>
+                            <div class="stat">
+                                <span class="stat-label">Maintenance</span>
+                                <span class="stat-value">Low</span>
                             </div>
+                        </div>
+                        <button class="btn btn--primary solution-btn">Choose This Solution</button>
+                    </div>
 
-                            <div class="form-group">
-                                <label for="keywords" class="form-label">Keywords (Optional)</label>
-                                <div class="keywords-container">
-                                    <input type="text" id="keywordsInput" class="form-control" placeholder="Enter keywords (press Enter or Comma to add)">
-                                    <div class="keywords-list" id="keywordsList"></div>
-                                </div>
-                                <div class="form-help">
-                                    <span class="char-count" id="keywordsCharCount">0/10 keywords</span>
-                                </div>
+                    <div class="solution-card" data-solution="runtime">
+                        <div class="solution-header">
+                            <h3>Runtime Configuration</h3>
+                            <div class="solution-badges">
+                                <span class="status status--warning">Medium Security</span>
+                                <span class="complexity complexity--medium">Medium Complexity</span>
+                                <span class="badge badge--recommended">Recommended</span>
                             </div>
+                        </div>
+                        <p>Generate configuration file at container startup with environment variables</p>
+                        <div class="solution-stats">
+                            <div class="stat">
+                                <span class="stat-label">Setup Time</span>
+                                <span class="stat-value">25 min</span>
+                            </div>
+                            <div class="stat">
+                                <span class="stat-label">Maintenance</span>
+                                <span class="stat-value">Medium</span>
+                            </div>
+                        </div>
+                        <button class="btn btn--primary solution-btn">Choose This Solution</button>
+                    </div>
 
-                            <div class="form-group">
-                                <label class="form-label">Supporting Documents (Optional)</label>
-                                <div class="file-upload-area" id="fileUploadArea">
-                                    <div class="file-upload-content">
-                                        <div class="file-upload-icon">📁</div>
-                                        <p>Drag and drop files here or click to select</p>
-                                        <p class="file-upload-help">Supported formats: PDF, DOCX, PNG, JPG, XLSX</p>
+                    <div class="solution-card" data-solution="proxy">
+                        <div class="solution-header">
+                            <h3>Backend Proxy Server</h3>
+                            <div class="solution-badges">
+                                <span class="status status--success">High Security</span>
+                                <span class="complexity complexity--high">High Complexity</span>
+                            </div>
+                        </div>
+                        <p>Create a backend service to proxy OpenAI API calls</p>
+                        <div class="solution-stats">
+                            <div class="stat">
+                                <span class="stat-label">Setup Time</span>
+                                <span class="stat-value">60 min</span>
+                            </div>
+                            <div class="stat">
+                                <span class="stat-label">Maintenance</span>
+                                <span class="stat-value">High</span>
+                            </div>
+                        </div>
+                        <button class="btn btn--outline solution-btn">Choose This Solution</button>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Solution Implementation -->
+            <section class="implementation hidden" id="implementationSection">
+                <div class="card">
+                    <div class="card__header">
+                        <h2>Implementation Guide</h2>
+                        <div class="progress-bar">
+                            <div class="progress-fill" id="progressFill"></div>
+                        </div>
+                        <span class="progress-text" id="progressText">Step 1 of 5</span>
+                    </div>
+                    <div class="card__body">
+                        <div class="implementation-content" id="implementationContent">
+                            <!-- Content will be dynamically loaded -->
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Code Examples -->
+            <section class="code-examples hidden" id="codeExamplesSection">
+                <div class="card">
+                    <div class="card__header">
+                        <h2>Code Examples</h2>
+                    </div>
+                    <div class="card__body">
+                        <div class="code-tabs">
+                            <div class="tab-headers">
+                                <button class="tab-header active" data-tab="build-script">Build Script</button>
+                                <button class="tab-header" data-tab="runtime-script">Runtime Script</button>
+                                <button class="tab-header" data-tab="secure-app">Secure App.js</button>
+                            </div>
+                            <div class="tab-contents">
+                                <div class="tab-content active" data-tab="build-script">
+                                    <div class="code-header">
+                                        <span class="code-filename">inject-env.js</span>
+                                        <button class="btn btn--sm copy-btn" data-copy="build-script">Copy</button>
                                     </div>
-                                    <input type="file" id="fileInput" multiple accept=".pdf,.docx,.png,.jpg,.jpeg,.xlsx" class="hidden">
+                                    <pre class="code-block" id="buildScriptCode"></pre>
                                 </div>
-                                <div class="uploaded-files" id="uploadedFiles"></div>
+                                <div class="tab-content" data-tab="runtime-script">
+                                    <div class="code-header">
+                                        <span class="code-filename">generate-config.sh</span>
+                                        <button class="btn btn--sm copy-btn" data-copy="runtime-script">Copy</button>
+                                    </div>
+                                    <pre class="code-block" id="runtimeScriptCode"></pre>
+                                </div>
+                                <div class="tab-content" data-tab="secure-app">
+                                    <div class="code-header">
+                                        <span class="code-filename">config-manager.js</span>
+                                        <button class="btn btn--sm copy-btn" data-copy="secure-app">Copy</button>
+                                    </div>
+                                    <pre class="code-block" id="secureAppCode"></pre>
+                                </div>
                             </div>
-
-                            <div class="form-actions">
-                                <button type="button" id="nextStep1" class="btn btn--primary btn--full-width" disabled>
-                                    Next: Analyze Technology
-                                </button>
-                            </div>
-                        </form>
-                    </div>
-                </div>
-                <div class="auto-save-status" id="autoSaveStatus">Auto-saved</div>
-            </section>
-
-            <!-- Step 2: Technology Analysis -->
-            <section class="step-section" id="step2">
-                <div class="card">
-                    <div class="card__header">
-                        <h2>Step 2: Technology Analysis</h2>
-                        <div class="loading-indicator" id="step2Loading">
-                            <div class="spinner"></div>
-                            <span>Analyzing technology...</span>
-                        </div>
-                    </div>
-                    <div class="card__body">
-                        <div class="analysis-results" id="analysisResults">
-                            <div class="analysis-section">
-                                <h3>Key Concepts</h3>
-                                <div class="concept-list" id="keyConcepts"></div>
-                            </div>
-                            <div class="analysis-section">
-                                <h3>Technical Domains</h3>
-                                <div class="domain-list" id="technicalDomains"></div>
-                            </div>
-                            <div class="analysis-section">
-                                <h3>Classification Codes</h3>
-                                <div class="classification-codes" id="classificationCodes"></div>
-                            </div>
-                            <div class="analysis-section">
-                                <h3>Search Queries</h3>
-                                <div class="search-queries" id="searchQueries"></div>
-                            </div>
-                        </div>
-                        <div class="form-actions">
-                            <button type="button" id="backStep2" class="btn btn--secondary">Back</button>
-                            <button type="button" id="nextStep2" class="btn btn--primary" disabled>
-                                Next: Search Patents
-                            </button>
                         </div>
                     </div>
                 </div>
             </section>
 
-            <!-- Step 3: Live Patent Search -->
-            <section class="step-section" id="step3">
+            <!-- Environment Variables -->
+            <section class="env-vars hidden" id="envVarsSection">
                 <div class="card">
                     <div class="card__header">
-                        <h2>Step 3: Live Patent Search</h2>
-                        <div class="search-status" id="searchStatus">
-                            <div class="search-progress">
-                                <div class="progress-bar">
-                                    <div class="progress-fill" id="searchProgress"></div>
-                                </div>
-                                <span class="progress-text" id="searchProgressText">Preparing search...</span>
-                            </div>
-                        </div>
+                        <h2>Environment Variables Configuration</h2>
+                        <p class="card__subtitle">Set these environment variables in your Render dashboard</p>
                     </div>
                     <div class="card__body">
-                        <div class="search-results" id="searchResults">
-                            <div class="results-summary" id="resultsSummary"></div>
-                            <div class="results-list" id="resultsList"></div>
-                        </div>
-                        <div class="form-actions">
-                            <button type="button" id="backStep3" class="btn btn--secondary">Back</button>
-                            <button type="button" id="nextStep3" class="btn btn--primary" disabled>
-                                Next: Rank & Select
-                            </button>
+                        <div class="env-vars-list" id="envVarsList">
+                            <!-- Environment variables will be dynamically loaded -->
                         </div>
                     </div>
                 </div>
             </section>
 
-            <!-- Step 4: Closest Prior Art Selection -->
-            <section class="step-section" id="step4">
+            <!-- Security Best Practices -->
+            <section class="best-practices">
                 <div class="card">
                     <div class="card__header">
-                        <h2>Step 4: Closest Prior Art Selection & Ranking</h2>
-                        <div class="ranking-info">
-                            <span class="status status--info">Automatically ranked by semantic similarity</span>
-                        </div>
+                        <h2>Security Best Practices</h2>
                     </div>
                     <div class="card__body">
-                        <div class="ranking-results" id="rankingResults">
-                            <div class="ranking-methodology">
-                                <h3>Ranking Methodology</h3>
-                                <p>Patents have been automatically ranked based on semantic similarity analysis comparing technical concepts, keywords, and patent content with your disclosure.</p>
+                        <div class="practices-grid">
+                            <div class="practice-item">
+                                <h3>Never Hardcode Secrets</h3>
+                                <p>Always use environment variables or secure secret management systems</p>
+                                <span class="status status--error">Critical</span>
                             </div>
-                            <div class="selected-patents" id="selectedPatents"></div>
-                        </div>
-                        <div class="form-actions">
-                            <button type="button" id="backStep4" class="btn btn--secondary">Back</button>
-                            <button type="button" id="nextStep4" class="btn btn--primary">
-                                Next: Generate Assessment
-                            </button>
-                        </div>
-                    </div>
-                </div>
-            </section>
-
-            <!-- Step 5: GPT-Powered Assessment -->
-            <section class="step-section" id="step5">
-                <div class="card">
-                    <div class="card__header">
-                        <h2>Step 5: GPT-Powered Assessment & Analysis</h2>
-                        <div class="assessment-status" id="assessmentStatus">
-                            <div class="progress-bar">
-                                <div class="progress-fill" id="assessmentProgress"></div>
+                            <div class="practice-item">
+                                <h3>Rotate API Keys Regularly</h3>
+                                <p>Implement a schedule for rotating API keys and tokens</p>
+                                <span class="status status--warning">Important</span>
                             </div>
-                            <span class="progress-text" id="assessmentProgressText">Generating analysis...</span>
-                        </div>
-                    </div>
-                    <div class="card__body">
-                        <div class="assessment-results" id="assessmentResults">
-                            <div class="patent-analyses" id="patentAnalyses"></div>
-                            <div class="patentability-assessment" id="patentabilityAssessment">
-                                <h3>Comprehensive Patentability Assessment</h3>
-                                <div class="assessment-section">
-                                    <h4>Novelty Analysis</h4>
-                                    <div class="novelty-analysis" id="noveltyAnalysis"></div>
-                                </div>
-                                <div class="assessment-section">
-                                    <h4>Inventive Step Analysis</h4>
-                                    <div class="inventive-step-analysis" id="inventiveStepAnalysis"></div>
-                                </div>
-                                <div class="assessment-section">
-                                    <h4>Industrial Applicability Assessment</h4>
-                                    <div class="industrial-applicability" id="industrialApplicability"></div>
-                                </div>
+                            <div class="practice-item">
+                                <h3>Use Least Privilege Access</h3>
+                                <p>Grant only the minimum necessary permissions for API keys</p>
+                                <span class="status status--success">Recommended</span>
                             </div>
-                        </div>
-                        <div class="form-actions">
-                            <button type="button" id="backStep5" class="btn btn--secondary">Back</button>
-                            <button type="button" id="nextStep5" class="btn btn--primary">
-                                Next: Generate Report
-                            </button>
-                        </div>
-                    </div>
-                </div>
-            </section>
-
-            <!-- Step 6: Report Generation -->
-            <section class="step-section" id="step6">
-                <div class="card">
-                    <div class="card__header">
-                        <h2>Step 6: Report Generation & Download</h2>
-                    </div>
-                    <div class="card__body">
-                        <div class="report-summary" id="reportSummary">
-                            <h3>Executive Summary</h3>
-                            <div class="summary-content" id="summaryContent"></div>
-                        </div>
-                        <div class="download-options">
-                            <h3>Download Options</h3>
-                            <div class="download-buttons">
-                                <button type="button" id="downloadPDF" class="btn btn--primary">
-                                    📄 Download PDF Report
-                                </button>
-                                <button type="button" id="downloadJSON" class="btn btn--secondary">
-                                    📊 Export JSON Data
-                                </button>
+                            <div class="practice-item">
+                                <h3>Monitor API Usage</h3>
+                                <p>Set up alerts for unusual API usage patterns</p>
+                                <span class="status status--info">Optional</span>
                             </div>
-                        </div>
-                        <div class="form-actions">
-                            <button type="button" id="backStep6" class="btn btn--secondary">Back</button>
-                            <button type="button" id="restartProcess" class="btn btn--outline">
-                                🔄 Start New Analysis
-                            </button>
                         </div>
                     </div>
                 </div>
@@ -275,7 +224,7 @@
         </main>
 
         <footer class="footer">
-            <p>&copy; 2025 Patent Prior Art Search & Analysis Tool</p>
+            <p>&copy; 2025 PASAI Security Fix. Built with security best practices.</p>
         </footer>
     </div>
 
