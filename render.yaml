@@ -1,24 +1,12 @@
 services:
   - type: web
-    name: pasai-patent-search
+    name: pasai
     env: node
-    buildCommand: yarn install
-    startCommand: yarn start
+    buildCommand: npm install
+    startCommand: npm start
     healthCheckPath: /
     envVars:
       - key: NODE_ENV
         value: production
       - key: PORT
         generateValue: true
-      - key: OPENAI_API_KEY
-        sync: false
-      - key: LENS_TOKEN
-        sync: false
-      - key: GOOGLE_API_KEY
-        sync: false
-      - key: GOOGLE_CX
-        sync: false
-    routes:
-      - type: rewrite
-        source: /(.*)
-        destination: /index.html
