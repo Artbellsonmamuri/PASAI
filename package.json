@@ -1,0 +1,30 @@
+{
+  "name": "pasai-patent-search",
+  "version": "1.0.0",
+  "description": "Automated Patent Prior Art Search and Analysis Platform",
+  "main": "src/index.html",
+  "scripts": {
+    "start": "http-server src -p $PORT --cors -c-1",
+    "dev": "http-server src -p 8080 --cors -c-1",
+    "build": "echo 'Static site - no build required'"
+  },
+  "keywords": [
+    "patent",
+    "prior-art",
+    "search",
+    "analysis",
+    "lens-api"
+  ],
+  "author": "PASAI Team",
+  "license": "MIT",
+  "dependencies": {
+    "http-server": "^14.1.1"
+  },
+  "engines": {
+    "node": ">=14.0.0"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/Artbellsonmamuri/PASAI"
+  }
+}
