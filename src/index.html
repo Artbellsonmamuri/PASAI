@@ -1,1 +1,425 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Patent Prior Art Search & Analysis Platform</title>
+    <link rel="stylesheet" href="style.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+</head>
+<body>
+    <div class="app-container">
+        <!-- Progress Navigation -->
+        <nav class="progress-nav">
+            <div class="container">
+                <div class="progress-steps">
+                    <div class="step active" data-step="1">
+                        <div class="step-number">1</div>
+                        <div class="step-title">Disclosure</div>
+                    </div>
+                    <div class="step" data-step="2">
+                        <div class="step-number">2</div>
+                        <div class="step-title">Analysis</div>
+                    </div>
+                    <div class="step" data-step="3">
+                        <div class="step-number">3</div>
+                        <div class="step-title">Search</div>
+                    </div>
+                    <div class="step" data-step="4">
+                        <div class="step-number">4</div>
+                        <div class="step-title">Selection</div>
+                    </div>
+                    <div class="step" data-step="5">
+                        <div class="step-number">5</div>
+                        <div class="step-title">Report</div>
+                    </div>
+                    <div class="step" data-step="6">
+                        <div class="step-number">6</div>
+                        <div class="step-title">Download</div>
+                    </div>
+                </div>
+            </div>
+        </nav>
 
+        <!-- Page 1: Disclosure Input -->
+        <div class="page active" id="page-1">
+            <div class="container">
+                <div class="page-header">
+                    <h1>Technology Disclosure</h1>
+                    <p class="page-subtitle">Please provide detailed information about your invention</p>
+                </div>
+                
+                <div class="disclosure-form">
+                    <form id="disclosureForm">
+                        <div class="form-group">
+                            <label for="inventionTitle" class="form-label">Invention Title *</label>
+                            <input type="text" id="inventionTitle" class="form-control" maxlength="200" required>
+                            <div class="char-counter">
+                                <span id="titleCounter">0</span>/200 characters
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="abstract" class="form-label">Abstract * (150-300 words)</label>
+                            <textarea id="abstract" class="form-control" rows="6" required></textarea>
+                            <div class="word-counter">
+                                <span id="abstractCounter">0</span> words (minimum 150, maximum 300)
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="technicalDisclosure" class="form-label">Detailed Technical Disclosure * (minimum 500 characters)</label>
+                            <textarea id="technicalDisclosure" class="form-control" rows="8" required></textarea>
+                            <div class="char-counter">
+                                <span id="disclosureCounter">0</span> characters (minimum 500)
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label class="form-label">Initial Claims (optional)</label>
+                            <div class="expandable-section">
+                                <button type="button" class="btn btn--secondary" id="toggleClaims">
+                                    Add Claims
+                                </button>
+                                <div id="claimsSection" class="hidden">
+                                    <textarea id="initialClaims" class="form-control" rows="6" placeholder="Enter your initial patent claims here..."></textarea>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="keywords" class="form-label">Keywords (up to 10)</label>
+                            <div class="keywords-input">
+                                <input type="text" id="keywordInput" class="form-control" placeholder="Type keyword and press Enter">
+                                <div class="keywords-list" id="keywordsList"></div>
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label class="form-label">Upload Supporting Documents</label>
+                            <div class="file-upload-area" id="fileUploadArea">
+                                <div class="upload-content">
+                                    <div class="upload-icon">📁</div>
+                                    <p>Drag and drop files here or click to browse</p>
+                                    <p class="upload-hint">Supported formats: PDF, DOCX, PNG, JPG, XLSX</p>
+                                </div>
+                                <input type="file" id="fileInput" multiple accept=".pdf,.docx,.png,.jpg,.jpeg,.xlsx" class="hidden">
+                            </div>
+                            <div class="uploaded-files" id="uploadedFiles"></div>
+                        </div>
+
+                        <div class="form-progress">
+                            <div class="progress-bar">
+                                <div class="progress-fill" id="formProgress"></div>
+                            </div>
+                            <p class="progress-text">Form completion: <span id="progressText">0%</span></p>
+                        </div>
+
+                        <div class="form-actions">
+                            <button type="button" class="btn btn--primary" id="nextToAnalysis" disabled>
+                                Next: Analyze Technology
+                            </button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+
+        <!-- Page 2: Technology Analysis -->
+        <div class="page" id="page-2">
+            <div class="container">
+                <div class="page-header">
+                    <h1>Technology Analysis</h1>
+                    <p class="page-subtitle">Automated analysis of your technology disclosure</p>
+                </div>
+
+                <div class="analysis-content">
+                    <div class="analysis-section">
+                        <h3>Concept Extraction</h3>
+                        <div class="progress-indicator" id="conceptProgress">
+                            <div class="progress-bar">
+                                <div class="progress-fill"></div>
+                            </div>
+                            <p class="status-text">Extracting key technical concepts...</p>
+                        </div>
+                        <div class="results-section hidden" id="conceptResults">
+                            <div class="concept-grid" id="conceptGrid"></div>
+                        </div>
+                    </div>
+
+                    <div class="analysis-section">
+                        <h3>Patent Classification</h3>
+                        <div class="progress-indicator" id="classificationProgress">
+                            <div class="progress-bar">
+                                <div class="progress-fill"></div>
+                            </div>
+                            <p class="status-text">Identifying patent classification codes...</p>
+                        </div>
+                        <div class="results-section hidden" id="classificationResults">
+                            <div class="classification-grid" id="classificationGrid"></div>
+                        </div>
+                    </div>
+
+                    <div class="analysis-section">
+                        <h3>Search Strategy</h3>
+                        <div class="progress-indicator" id="strategyProgress">
+                            <div class="progress-bar">
+                                <div class="progress-fill"></div>
+                            </div>
+                            <p class="status-text">Generating search strategies...</p>
+                        </div>
+                        <div class="results-section hidden" id="strategyResults">
+                            <div class="strategy-list" id="strategyList"></div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="page-actions">
+                    <button type="button" class="btn btn--outline" id="backToDisclosure">
+                        Back to Disclosure
+                    </button>
+                    <button type="button" class="btn btn--primary" id="startSearch" disabled>
+                        Start Prior Art Search
+                    </button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Page 3: Prior Art Search -->
+        <div class="page" id="page-3">
+            <div class="container">
+                <div class="page-header">
+                    <h1>Prior Art Search</h1>
+                    <p class="page-subtitle">Searching patent databases for relevant prior art</p>
+                </div>
+
+                <div class="search-content">
+                    <div class="search-status">
+                        <div class="search-progress" id="searchProgress">
+                            <div class="search-item">
+                                <div class="search-source">Lens.org API</div>
+                                <div class="progress-bar">
+                                    <div class="progress-fill" id="lensProgress"></div>
+                                </div>
+                                <div class="search-stats">
+                                    <span id="lensResults">0</span> results
+                                </div>
+                            </div>
+                            <div class="search-item">
+                                <div class="search-source">Google Patents</div>
+                                <div class="progress-bar">
+                                    <div class="progress-fill" id="googleProgress"></div>
+                                </div>
+                                <div class="search-stats">
+                                    <span id="googleResults">0</span> results
+                                </div>
+                            </div>
+                        </div>
+                        <div class="search-summary">
+                            <div class="summary-item">
+                                <div class="summary-label">Total Results</div>
+                                <div class="summary-value" id="totalResults">0</div>
+                            </div>
+                            <div class="summary-item">
+                                <div class="summary-label">Search Time</div>
+                                <div class="summary-value" id="searchTime">0:00</div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="search-results" id="searchResults"></div>
+                </div>
+
+                <div class="page-actions">
+                    <button type="button" class="btn btn--outline" id="backToAnalysis">
+                        Back to Analysis
+                    </button>
+                    <button type="button" class="btn btn--primary" id="selectDocuments" disabled>
+                        Select Top Documents
+                    </button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Page 4: Document Selection -->
+        <div class="page" id="page-4">
+            <div class="container">
+                <div class="page-header">
+                    <h1>Document Selection & Ranking</h1>
+                    <p class="page-subtitle">Top 10 most relevant prior art documents</p>
+                </div>
+
+                <div class="selection-content">
+                    <div class="selection-summary">
+                        <div class="summary-stats">
+                            <div class="stat-item">
+                                <div class="stat-label">Documents Selected</div>
+                                <div class="stat-value">10</div>
+                            </div>
+                            <div class="stat-item">
+                                <div class="stat-label">Closest Match</div>
+                                <div class="stat-value" id="closestMatch">-</div>
+                            </div>
+                            <div class="stat-item">
+                                <div class="stat-label">Analysis Method</div>
+                                <div class="stat-value">Semantic Similarity</div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="selected-documents" id="selectedDocuments"></div>
+                </div>
+
+                <div class="page-actions">
+                    <button type="button" class="btn btn--outline" id="backToSearch">
+                        Back to Search
+                    </button>
+                    <button type="button" class="btn btn--primary" id="generateReport">
+                        Generate Report
+                    </button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Page 5: Report Generation -->
+        <div class="page" id="page-5">
+            <div class="container">
+                <div class="page-header">
+                    <h1>Report Generation</h1>
+                    <p class="page-subtitle">Comprehensive patentability assessment report</p>
+                </div>
+
+                <div class="report-content">
+                    <div class="report-progress" id="reportProgress">
+                        <div class="progress-bar">
+                            <div class="progress-fill"></div>
+                        </div>
+                        <p class="status-text">Generating comprehensive assessment report...</p>
+                    </div>
+
+                    <div class="report-preview hidden" id="reportPreview">
+                        <div class="report-header">
+                            <h2>Patent Prior Art Analysis Report</h2>
+                            <div class="report-meta">
+                                <div class="meta-item">
+                                    <strong>Generated:</strong> <span id="reportDate"></span>
+                                </div>
+                                <div class="meta-item">
+                                    <strong>Invention:</strong> <span id="reportTitle"></span>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="report-sections">
+                            <div class="report-section">
+                                <h3>Executive Summary</h3>
+                                <div class="section-content" id="executiveSummary"></div>
+                            </div>
+
+                            <div class="report-section">
+                                <h3>Patentability Assessment</h3>
+                                <div class="assessment-grid">
+                                    <div class="assessment-item">
+                                        <div class="assessment-label">Novelty</div>
+                                        <div class="assessment-value" id="noveltyScore">-</div>
+                                    </div>
+                                    <div class="assessment-item">
+                                        <div class="assessment-label">Inventive Step</div>
+                                        <div class="assessment-value" id="inventiveScore">-</div>
+                                    </div>
+                                    <div class="assessment-item">
+                                        <div class="assessment-label">Industrial Applicability</div>
+                                        <div class="assessment-value" id="industrialScore">-</div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="report-section">
+                                <h3>Key Recommendations</h3>
+                                <div class="section-content" id="recommendations"></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="page-actions">
+                    <button type="button" class="btn btn--outline" id="backToSelection">
+                        Back to Selection
+                    </button>
+                    <button type="button" class="btn btn--primary" id="downloadReport" disabled>
+                        Download PDF Report
+                    </button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Page 6: Download & Export -->
+        <div class="page" id="page-6">
+            <div class="container">
+                <div class="page-header">
+                    <h1>Download & Export</h1>
+                    <p class="page-subtitle">Your patent analysis report is ready</p>
+                </div>
+
+                <div class="download-content">
+                    <div class="download-summary">
+                        <div class="summary-card">
+                            <h3>Analysis Complete</h3>
+                            <p>Your comprehensive patent prior art analysis has been successfully generated.</p>
+                            <div class="summary-stats">
+                                <div class="stat">
+                                    <div class="stat-number" id="finalDocCount">10</div>
+                                    <div class="stat-label">Prior Art Documents</div>
+                                </div>
+                                <div class="stat">
+                                    <div class="stat-number" id="finalPageCount">-</div>
+                                    <div class="stat-label">Report Pages</div>
+                                </div>
+                                <div class="stat">
+                                    <div class="stat-number" id="finalRecommendations">-</div>
+                                    <div class="stat-label">Recommendations</div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="download-options">
+                        <div class="option-card">
+                            <h4>Full PDF Report</h4>
+                            <p>Complete analysis with all sections and recommendations</p>
+                            <button type="button" class="btn btn--primary" id="downloadFullPDF">
+                                Download Full Report
+                            </button>
+                        </div>
+                        <div class="option-card">
+                            <h4>Executive Summary</h4>
+                            <p>Key findings and recommendations summary</p>
+                            <button type="button" class="btn btn--outline" id="downloadSummaryPDF">
+                                Download Summary
+                            </button>
+                        </div>
+                        <div class="option-card">
+                            <h4>Raw Data Export</h4>
+                            <p>Search results and analysis data in JSON format</p>
+                            <button type="button" class="btn btn--outline" id="downloadDataJSON">
+                                Download Data
+                            </button>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="page-actions">
+                    <button type="button" class="btn btn--outline" id="startNewSearch">
+                        Start New Search
+                    </button>
+                    <button type="button" class="btn btn--secondary" id="returnToDashboard">
+                        Return to Dashboard
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="app.js"></script>
+</body>
+</html>
