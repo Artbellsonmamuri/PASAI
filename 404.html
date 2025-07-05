@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Patent Prior Art Search - Loading...</title>
+    <script>
+        // GitHub Pages SPA routing fix
+        // This script will redirect to the main page with the current path as a parameter
+        const currentPath = window.location.pathname;
+        if (currentPath !== '/') {
+            window.location.replace(window.location.origin + '/?p=' + currentPath);
+        } else {
+            window.location.replace(window.location.origin + '/');
+        }
+    </script>
+</head>
+<body>
+    <div style="text-align: center; margin-top: 50px; font-family: Arial, sans-serif;">
+        <h1>Patent Prior Art Search</h1>
+        <p>Loading application...</p>
+        <p>If you are not redirected automatically, <a href="/">click here</a>.</p>
+    </div>
+</body>
+</html>

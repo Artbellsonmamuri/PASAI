@@ -1,16 +1,33 @@
 services:
   - type: web
-    name: automated-patent-search
-    env: node
-    buildCommand: yarn install
-    startCommand: yarn start
-    healthCheckPath: /
+    name: patent-prior-art-search
+    runtime: static
+    buildCommand: echo "Static site - no build needed"
+    staticPublishPath: ./
     routes:
       - type: rewrite
-        source: /(.*)
+        source: /*
         destination: /index.html
     envVars:
-      - key: NODE_ENV
-        value: production
-      - key: PORT
-        generateValue: true
+      - key: LENS_TOKEN
+        value: NHaWYJh7KXwYbJt4mNSPGvfMMYGPW3z1n8jXLh2FIvm39WgQjnUH
+      - key: GOOGLE_API_KEY
+        value: ""
+      - key: GOOGLE_CX
+        value: ""
+    headers:
+      - path: /*
+        name: X-Robots-Tag
+        value: noindex
+      - path: /*
+        name: X-Frame-Options
+        value: DENY
+      - path: /*
+        name: X-Content-Type-Options
+        value: nosniff
+      - path: /*
+        name: Referrer-Policy
+        value: strict-origin-when-cross-origin
+      - path: /*
+        name: Content-Security-Policy
+        value: "default-src 'self'; script-src 'self' 'unsafe-inline' https://cdnjs.cloudflare.com; style-src 'self' 'unsafe-inline'; img-src 'self' data:; connect-src 'self' https://api.lens.org https://www.googleapis.com"
