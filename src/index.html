@@ -3,223 +3,269 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>PASAI - Patent Prior Art Search & Analysis</title>
+    <title>Patent Prior Art Search Application</title>
     <link rel="stylesheet" href="style.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
 </head>
 <body>
     <div class="container">
         <!-- Header -->
-        <header class="header">
-            <h1>PASAI</h1>
-            <p class="header__subtitle">Patent Prior Art Search & Analysis Intelligence</p>
+        <header class="app-header">
+            <h1>Patent Prior Art Search</h1>
+            <p>Comprehensive patent analysis and prior art discovery</p>
         </header>
 
-        <!-- Progress Navigation -->
-        <nav class="progress-nav">
-            <div class="progress-nav__steps">
-                <div class="progress-nav__step active" data-step="1">
-                    <span class="progress-nav__step-number">1</span>
-                    <span class="progress-nav__step-label">Technology Disclosure</span>
-                </div>
-                <div class="progress-nav__step" data-step="2">
-                    <span class="progress-nav__step-number">2</span>
-                    <span class="progress-nav__step-label">Analysis</span>
-                </div>
-                <div class="progress-nav__step" data-step="3">
-                    <span class="progress-nav__step-number">3</span>
-                    <span class="progress-nav__step-label">Search</span>
-                </div>
-                <div class="progress-nav__step" data-step="4">
-                    <span class="progress-nav__step-number">4</span>
-                    <span class="progress-nav__step-label">Results</span>
-                </div>
-                <div class="progress-nav__step" data-step="5">
-                    <span class="progress-nav__step-number">5</span>
-                    <span class="progress-nav__step-label">Reports</span>
-                </div>
+        <!-- Progress Bar -->
+        <div class="progress-container">
+            <div class="progress-bar">
+                <div class="progress-fill" id="progressFill"></div>
+            </div>
+            <div class="progress-text">
+                <span id="progressText">0% Complete</span>
+            </div>
+        </div>
+
+        <!-- Step Navigation -->
+        <nav class="step-nav">
+            <div class="step-item active" data-step="1">
+                <span class="step-number">1</span>
+                <span class="step-label">Technology Disclosure</span>
+            </div>
+            <div class="step-item" data-step="2">
+                <span class="step-number">2</span>
+                <span class="step-label">Technology Analysis</span>
+            </div>
+            <div class="step-item" data-step="3">
+                <span class="step-number">3</span>
+                <span class="step-label">Prior Art Search</span>
+            </div>
+            <div class="step-item" data-step="4">
+                <span class="step-number">4</span>
+                <span class="step-label">Results Analysis</span>
+            </div>
+            <div class="step-item" data-step="5">
+                <span class="step-number">5</span>
+                <span class="step-label">Report Generation</span>
             </div>
         </nav>
 
         <!-- Main Content -->
         <main class="main-content">
-            <!-- Section 1: Technology Disclosure -->
-            <section id="section-1" class="section active">
+            <!-- Step 1: Technology Disclosure -->
+            <div class="step-content active" id="step1">
                 <div class="card">
                     <div class="card__header">
                         <h2>Technology Disclosure Form</h2>
-                        <div class="progress-indicator">
-                            <div class="progress-bar">
-                                <div class="progress-bar__fill" id="progressFill"></div>
-                            </div>
-                            <span class="progress-percentage" id="progressPercentage">0%</span>
-                        </div>
+                        <p>Provide detailed information about your invention</p>
                     </div>
                     <div class="card__body">
-                        <form id="disclosureForm" class="disclosure-form">
-                            <!-- Invention Title -->
+                        <form id="disclosureForm">
+                            <!-- Title Input -->
                             <div class="form-group">
-                                <label for="inventionTitle" class="form-label">Invention Title *</label>
-                                <input type="text" id="inventionTitle" class="form-control" placeholder="Enter your invention title" maxlength="200">
-                                <div class="character-count">
-                                    <span id="titleCharCount">0</span>/200 characters
+                                <label for="title" class="form-label">Invention Title *</label>
+                                <input type="text" id="title" name="title" class="form-control" placeholder="Enter a descriptive title for your invention" maxlength="200">
+                                <div class="field-counter">
+                                    <span id="titleCounter">0/200 characters</span>
+                                    <div class="validation-status" id="titleStatus"></div>
                                 </div>
                             </div>
 
                             <!-- Abstract -->
                             <div class="form-group">
                                 <label for="abstract" class="form-label">Abstract *</label>
-                                <textarea id="abstract" class="form-control" rows="6" placeholder="Provide a detailed abstract of your invention (minimum 150 words)"></textarea>
-                                <div class="character-count">
-                                    <span id="abstractWordCount">0</span>/300 words
+                                <textarea id="abstract" name="abstract" class="form-control" rows="6" placeholder="Provide a concise summary of your invention (150-300 words)"></textarea>
+                                <div class="field-counter">
+                                    <span id="abstractCounter">0/300 words</span>
+                                    <div class="validation-status" id="abstractStatus"></div>
                                 </div>
                             </div>
 
                             <!-- Detailed Disclosure -->
                             <div class="form-group">
-                                <label for="detailedDisclosure" class="form-label">Detailed Disclosure *</label>
-                                <textarea id="detailedDisclosure" class="form-control" rows="8" placeholder="Provide comprehensive technical details of your invention (minimum 500 characters)"></textarea>
-                                <div class="character-count">
-                                    <span id="disclosureCharCount">0</span>/500 characters
+                                <label for="disclosure" class="form-label">Detailed Disclosure *</label>
+                                <textarea id="disclosure" name="disclosure" class="form-control" rows="8" placeholder="Provide a detailed description of your invention, including technical specifications, implementation details, and advantages (minimum 500 characters)"></textarea>
+                                <div class="field-counter">
+                                    <span id="disclosureCounter">0/500+ characters</span>
+                                    <div class="validation-status" id="disclosureStatus"></div>
                                 </div>
                             </div>
 
                             <!-- Keywords -->
                             <div class="form-group">
-                                <label for="keywords" class="form-label">Keywords (Maximum 10)</label>
-                                <div class="keyword-input-wrapper">
-                                    <input type="text" id="keywordInput" class="form-control" placeholder="Type keywords and press Enter or Comma to add">
-                                    <div class="keyword-tags" id="keywordTags"></div>
+                                <label for="keywords" class="form-label">Keywords (Optional)</label>
+                                <input type="text" id="keywords" name="keywords" class="form-control" placeholder="Enter keywords and press Enter or comma to add (max 10)">
+                                <div class="field-counter">
+                                    <span id="keywordsCounter">0/10 keywords</span>
                                 </div>
-                                <div class="input-hint">Press Enter or Comma to add keywords. Click X to remove.</div>
+                                <div class="keywords-list" id="keywordsList"></div>
                             </div>
 
                             <!-- Claims -->
                             <div class="form-group">
-                                <label for="claims" class="form-label">Claims (Maximum 10)</label>
-                                <div class="claim-input-wrapper">
-                                    <input type="text" id="claimInput" class="form-control" placeholder="Type a claim sentence and press Enter or Period to add">
-                                    <div class="claim-list" id="claimList"></div>
+                                <label for="claims" class="form-label">Claims (Optional)</label>
+                                <textarea id="claims" name="claims" class="form-control" rows="4" placeholder="Enter patent claims (one per line, end with period)"></textarea>
+                                <div class="field-counter">
+                                    <span id="claimsCounter">0/10 claims</span>
                                 </div>
-                                <div class="input-hint">Press Enter or Period to add claims. Each claim must be a single sentence.</div>
+                                <div class="claims-list" id="claimsList"></div>
                             </div>
 
-                            <!-- Navigation -->
-                            <div class="form-actions">
-                                <button type="button" id="nextAnalyzeBtn" class="btn btn--primary btn--lg" disabled>
-                                    Next: Analyze
-                                </button>
+                            <!-- File Upload -->
+                            <div class="form-group">
+                                <label class="form-label">Supporting Documents (Optional)</label>
+                                <div class="file-upload-area" id="fileUploadArea">
+                                    <div class="file-upload-placeholder">
+                                        <svg width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                            <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path>
+                                            <polyline points="17,8 12,3 7,8"></polyline>
+                                            <line x1="12" y1="3" x2="12" y2="15"></line>
+                                        </svg>
+                                        <h3>Upload Documents</h3>
+                                        <p>Drag and drop files here or click to browse</p>
+                                        <p class="file-types">PDF, DOCX, PNG, JPG, JPEG, XLSX (max 10MB each)</p>
+                                    </div>
+                                    <input type="file" id="fileInput" multiple accept=".pdf,.docx,.png,.jpg,.jpeg,.xlsx" hidden>
+                                </div>
+                                <div class="uploaded-files" id="uploadedFiles"></div>
                             </div>
                         </form>
                     </div>
                 </div>
-            </section>
+            </div>
 
-            <!-- Section 2: Analysis -->
-            <section id="section-2" class="section">
+            <!-- Step 2: Technology Analysis -->
+            <div class="step-content" id="step2">
                 <div class="card">
                     <div class="card__header">
                         <h2>Technology Analysis</h2>
+                        <p>Analyzing your invention and generating search queries</p>
                     </div>
                     <div class="card__body">
-                        <div class="analysis-content">
-                            <div class="analysis-step">
-                                <h3>Extracted Concepts</h3>
-                                <div id="extractedConcepts" class="concept-list"></div>
+                        <div class="analysis-status">
+                            <div class="loading-spinner" id="analysisSpinner"></div>
+                            <div class="analysis-progress">
+                                <h3>Analysis Progress</h3>
+                                <div class="analysis-steps">
+                                    <div class="analysis-step" id="extractingConcepts">
+                                        <span class="step-icon">⏳</span>
+                                        <span>Extracting key concepts...</span>
+                                    </div>
+                                    <div class="analysis-step" id="generatingQueries">
+                                        <span class="step-icon">⏳</span>
+                                        <span>Generating search queries...</span>
+                                    </div>
+                                    <div class="analysis-step" id="preparingSearch">
+                                        <span class="step-icon">⏳</span>
+                                        <span>Preparing search strategy...</span>
+                                    </div>
+                                </div>
                             </div>
-                            <div class="analysis-step">
-                                <h3>Generated Search Strings</h3>
-                                <div id="searchStrings" class="search-strings"></div>
-                            </div>
-                            <div class="form-actions">
-                                <button type="button" id="backToDisclosureBtn" class="btn btn--secondary btn--lg">Back</button>
-                                <button type="button" id="nextSearchBtn" class="btn btn--primary btn--lg">Next: Search</button>
-                            </div>
+                        </div>
+                        <div class="analysis-results hidden" id="analysisResults">
+                            <h3>Extracted Concepts</h3>
+                            <div class="concepts-list" id="conceptsList"></div>
+                            <h3>Generated Search Queries</h3>
+                            <div class="queries-list" id="queriesList"></div>
                         </div>
                     </div>
                 </div>
-            </section>
+            </div>
 
-            <!-- Section 3: Search -->
-            <section id="section-3" class="section">
+            <!-- Step 3: Prior Art Search -->
+            <div class="step-content" id="step3">
                 <div class="card">
                     <div class="card__header">
                         <h2>Prior Art Search</h2>
+                        <p>Searching patent databases for relevant prior art</p>
                     </div>
                     <div class="card__body">
-                        <div class="search-content">
+                        <div class="search-status">
+                            <div class="loading-spinner" id="searchSpinner"></div>
                             <div class="search-progress">
-                                <div class="search-status" id="searchStatus">Ready to search</div>
-                                <div class="search-progress-bar">
-                                    <div class="search-progress-fill" id="searchProgressFill"></div>
+                                <h3>Search Progress</h3>
+                                <div class="search-info" id="searchInfo">
+                                    <p>Searching through patent databases...</p>
+                                    <div class="search-stats">
+                                        <span id="searchProgress">0% complete</span>
+                                    </div>
                                 </div>
                             </div>
-                            <div class="search-results-preview" id="searchResultsPreview"></div>
-                            <div class="form-actions">
-                                <button type="button" id="backToAnalysisBtn" class="btn btn--secondary btn--lg">Back</button>
-                                <button type="button" id="startSearchBtn" class="btn btn--primary btn--lg">Start Search</button>
-                                <button type="button" id="nextResultsBtn" class="btn btn--primary btn--lg" disabled>Next: Results</button>
-                            </div>
+                        </div>
+                        <div class="search-results hidden" id="searchResults">
+                            <h3>Search Results</h3>
+                            <div class="results-list" id="resultsList"></div>
                         </div>
                     </div>
                 </div>
-            </section>
+            </div>
 
-            <!-- Section 4: Results -->
-            <section id="section-4" class="section">
+            <!-- Step 4: Results Analysis -->
+            <div class="step-content" id="step4">
                 <div class="card">
                     <div class="card__header">
-                        <h2>Results Review</h2>
+                        <h2>Results Analysis</h2>
+                        <p>Review and rank the most relevant prior art documents</p>
                     </div>
                     <div class="card__body">
-                        <div class="results-content">
-                            <div class="results-summary">
-                                <h3>Top 10 Closest Prior Art Documents</h3>
-                                <div id="resultsTable" class="results-table"></div>
-                            </div>
-                            <div class="form-actions">
-                                <button type="button" id="backToSearchBtn" class="btn btn--secondary btn--lg">Back</button>
-                                <button type="button" id="nextReportsBtn" class="btn btn--primary btn--lg">Next: Reports</button>
-                            </div>
+                        <div class="top-results" id="topResults">
+                            <h3>Top 10 Most Relevant Prior Art</h3>
+                            <div class="results-ranking" id="resultsRanking"></div>
                         </div>
                     </div>
                 </div>
-            </section>
+            </div>
 
-            <!-- Section 5: Reports -->
-            <section id="section-5" class="section">
+            <!-- Step 5: Report Generation -->
+            <div class="step-content" id="step5">
                 <div class="card">
                     <div class="card__header">
                         <h2>Report Generation</h2>
+                        <p>Generate comprehensive prior art analysis report</p>
                     </div>
                     <div class="card__body">
-                        <div class="reports-content">
-                            <div class="report-preview">
-                                <h3>Prior Art Analysis Report</h3>
-                                <div id="reportPreview" class="report-preview-content">
-                                    <p>Your comprehensive prior art analysis report will include:</p>
-                                    <ul>
-                                        <li>Technology disclosure summary</li>
-                                        <li>Search methodology and results</li>
-                                        <li>Prior art document analysis</li>
-                                        <li>Novelty assessment</li>
-                                        <li>Recommendations</li>
-                                    </ul>
+                        <div class="report-summary">
+                            <h3>Analysis Summary</h3>
+                            <div class="summary-stats">
+                                <div class="stat-item">
+                                    <span class="stat-label">Patents Analyzed</span>
+                                    <span class="stat-value" id="patentsAnalyzed">0</span>
+                                </div>
+                                <div class="stat-item">
+                                    <span class="stat-label">Relevance Score</span>
+                                    <span class="stat-value" id="relevanceScore">0%</span>
+                                </div>
+                                <div class="stat-item">
+                                    <span class="stat-label">Novelty Assessment</span>
+                                    <span class="stat-value" id="noveltyAssessment">Pending</span>
                                 </div>
                             </div>
-                            <div class="form-actions">
-                                <button type="button" id="backToResultsBtn" class="btn btn--secondary btn--lg">Back</button>
-                                <button type="button" id="downloadReportBtn" class="btn btn--primary btn--lg">Download PDF Report</button>
-                            </div>
+                        </div>
+                        <div class="report-actions">
+                            <button type="button" class="btn btn--primary" id="generateReportBtn">
+                                Generate PDF Report
+                            </button>
+                            <button type="button" class="btn btn--secondary" id="downloadReportBtn" disabled>
+                                Download Report
+                            </button>
                         </div>
                     </div>
                 </div>
-            </section>
+            </div>
         </main>
 
-        <!-- Footer -->
-        <footer class="footer">
-            <p>&copy; 2025 PASAI - Patent Prior Art Search & Analysis Intelligence</p>
-        </footer>
+        <!-- Navigation Buttons -->
+        <div class="navigation-buttons">
+            <button type="button" class="btn btn--outline" id="prevBtn" disabled>Previous</button>
+            <button type="button" class="btn btn--primary" id="nextBtn" disabled>Next</button>
+        </div>
+
+        <!-- Loading Overlay -->
+        <div class="loading-overlay hidden" id="loadingOverlay">
+            <div class="loading-content">
+                <div class="loading-spinner large"></div>
+                <p>Processing...</p>
+            </div>
+        </div>
     </div>
 
     <script src="app.js"></script>
