@@ -1,24 +1,25 @@
 {
-  "name": "pasai-complete",
+  "name": "pasai-patent-search",
   "version": "1.0.0",
-  "description": "Complete Patent Prior Art Search & Analysis Application",
+  "description": "Patent Prior Art Search and Analysis Application with AI-powered technology analysis",
   "main": "index.html",
   "scripts": {
-    "start": "http-server -p 8080 -a localhost",
-    "build": "echo 'No build step required for static app'",
-    "deploy": "echo 'Deploy to your preferred hosting platform'"
+    "start": "http-server -p $PORT -a 0.0.0.0 -o",
+    "dev": "http-server -p 8080 -a 0.0.0.0 -o",
+    "build": "echo 'Static build complete'",
+    "test": "echo 'No tests specified'"
   },
   "keywords": [
     "patent",
     "prior-art",
     "search",
     "analysis",
-    "gpt",
     "ai",
-    "lens-org",
-    "intellectual-property"
+    "intellectual-property",
+    "lens-api",
+    "openai"
   ],
-  "author": "PASAI Development Team",
+  "author": "Artbellson Mamuri",
   "license": "MIT",
   "dependencies": {
     "http-server": "^14.1.1"
@@ -28,7 +29,7 @@
   },
   "repository": {
     "type": "git",
-    "url": "https://github.com/your-username/pasai-complete.git"
+    "url": "https://github.com/Artbellsonmamuri/PASAI"
   },
-  "homepage": "https://your-username.github.io/pasai-complete"
+  "homepage": "https://github.com/Artbellsonmamuri/PASAI#readme"
 }
