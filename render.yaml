@@ -1,13 +1,16 @@
 services:
   - type: web
     name: automated-patent-search
-    env: static
-    staticPublishPath: .
-    buildCommand: |
-      npm install -g http-server
-    startCommand: |
-      http-server -p $PORT
+    env: node
+    buildCommand: yarn install
+    startCommand: yarn start
+    healthCheckPath: /
     routes:
       - type: rewrite
         source: /(.*)
         destination: /index.html
+    envVars:
+      - key: NODE_ENV
+        value: production
+      - key: PORT
+        generateValue: true
