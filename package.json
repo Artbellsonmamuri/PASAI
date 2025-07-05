@@ -1,35 +1,68 @@
 {
-  "name": "pasai-patent-search",
+  "name": "pasai-security-fix",
   "version": "1.0.0",
-  "description": "Patent Prior Art Search and Analysis Application with AI-powered technology analysis",
-  "main": "index.html",
+  "description": "Security-enhanced PASAI application with proper environment variable management",
+  "main": "src/app.js",
   "scripts": {
-    "start": "http-server -p $PORT -a 0.0.0.0 -o",
-    "dev": "http-server -p 8080 -a 0.0.0.0 -o",
-    "build": "echo 'Static build complete'",
-    "test": "echo 'No tests specified'"
+    "dev": "http-server -p 8080 -c-1",
+    "build": "echo 'No build step required for static site'",
+    "build:secure": "node inject-env.js",
+    "start": "./generate-config.sh && http-server -p ${PORT:-8080} -a 0.0.0.0",
+    "start:dev": "npm run generate:config && npm run dev",
+    "generate:config": "chmod +x generate-config.sh && ./generate-config.sh",
+    "validate:env": "node validate-env.js",
+    "security:check": "node security-check.js",
+    "test": "echo 'No tests specified' && exit 0",
+    "deploy:render": "npm run build:secure && npm start",
+    "deploy:github": "npm run build:secure",
+    "backup:config": "cp src/app.js src/app.js.backup",
+    "restore:config": "cp src/app.js.backup src/app.js"
   },
-  "keywords": [
-    "patent",
-    "prior-art",
-    "search",
-    "analysis",
-    "ai",
-    "intellectual-property",
-    "lens-api",
-    "openai"
-  ],
-  "author": "Artbellson Mamuri",
-  "license": "MIT",
   "dependencies": {
     "http-server": "^14.1.1"
+  },
+  "devDependencies": {
+    "chalk": "^4.1.2",
+    "dotenv": "^16.0.3"
   },
   "engines": {
     "node": ">=14.0.0"
   },
   "repository": {
     "type": "git",
-    "url": "https://github.com/Artbellsonmamuri/PASAI"
+    "url": "https://github.com/yourusername/PASAI.git"
   },
-  "homepage": "https://github.com/Artbellsonmamuri/PASAI#readme"
+  "keywords": [
+    "patent",
+    "prior-art",
+    "ai",
+    "openai",
+    "lens-api",
+    "security",
+    "environment-variables"
+  ],
+  "author": "Your Name",
+  "license": "MIT",
+  "config": {
+    "unsafe-perm": true
+  },
+  "render": {
+    "buildCommand": "npm run build:secure",
+    "startCommand": "npm start",
+    "environment": "static"
+  },
+  "security": {
+    "environmentVariables": {
+      "required": [
+        "OPENAI_API_KEY",
+        "LENS_TOKEN"
+      ],
+      "optional": [
+        "GOOGLE_API_KEY",
+        "GOOGLE_CX",
+        "NODE_ENV",
+        "ENABLE_DEBUG"
+      ]
+    }
+  }
 }
